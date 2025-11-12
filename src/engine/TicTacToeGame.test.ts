@@ -144,4 +144,63 @@ describe('TicTacToeGame', () => {
       expect(game.getWinner()).toBe('O')
     })
   })
+
+  describe('helper methods', () => {
+    it('should get available moves on empty board', () => {
+      const moves = game.getAvailableMoves()
+      expect(moves).toHaveLength(9)
+      expect(moves).toContainEqual([0, 0])
+      expect(moves).toContainEqual([2, 2])
+    })
+
+    it('should get available moves on partially filled board', () => {
+      game.makeMove(0, 0)
+      game.makeMove(1, 1)
+      const moves = game.getAvailableMoves()
+      expect(moves).toHaveLength(7)
+      expect(moves).not.toContainEqual([0, 0])
+      expect(moves).not.toContainEqual([1, 1])
+    })
+
+    it('should reset the game', () => {
+      game.makeMove(0, 0)
+      game.makeMove(1, 1)
+      game.reset()
+
+      expect(game.getBoard().flat().every(cell => cell === null)).toBe(true)
+      expect(game.getCurrentPlayer()).toBe('X')
+      expect(game.getWinner()).toBe(null)
+      expect(game.getWinningCells()).toBe(null)
+    })
+
+    it('should check if game is over when won', () => {
+      game.makeMove(0, 0) // X
+      game.makeMove(1, 0) // O
+      game.makeMove(0, 1) // X
+      game.makeMove(1, 1) // O
+      game.makeMove(0, 2) // X wins
+
+      expect(game.isGameOver()).toBe(true)
+    })
+
+    it('should check if game is over when draw', () => {
+      // Fill board to draw
+      game.makeMove(0, 0) // X
+      game.makeMove(0, 2) // O
+      game.makeMove(0, 1) // X
+      game.makeMove(1, 0) // O
+      game.makeMove(1, 2) // X
+      game.makeMove(1, 1) // O
+      game.makeMove(2, 0) // X
+      game.makeMove(2, 2) // O
+      game.makeMove(2, 1) // X
+
+      expect(game.isGameOver()).toBe(true)
+    })
+
+    it('should check if game is not over when in progress', () => {
+      game.makeMove(0, 0)
+      expect(game.isGameOver()).toBe(false)
+    })
+  })
 })

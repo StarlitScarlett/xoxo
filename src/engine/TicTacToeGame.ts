@@ -66,6 +66,33 @@ export class TicTacToeGame {
     return true
   }
 
+  getAvailableMoves(): [number, number][] {
+    const moves: [number, number][] = []
+    for (let row = 0; row < 3; row++) {
+      for (let col = 0; col < 3; col++) {
+        if (this.board[row][col] === null) {
+          moves.push([row, col])
+        }
+      }
+    }
+    return moves
+  }
+
+  reset(): void {
+    this.board = [
+      [null, null, null],
+      [null, null, null],
+      [null, null, null],
+    ]
+    this.currentPlayer = 'X'
+    this.winner = null
+    this.winningCells = null
+  }
+
+  isGameOver(): boolean {
+    return this.winner !== null
+  }
+
   private checkWinner(): Winner {
     // Check rows
     for (let row = 0; row < 3; row++) {
