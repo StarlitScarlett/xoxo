@@ -1,73 +1,90 @@
-# React + TypeScript + Vite
+# Tic Tac Toe
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A retro-styled tic tac toe game built with React, TypeScript, and Vite. Play against a smart AI opponent that provides a good challenge while still being beatable.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 🎮 Play against smart AI opponent
+- 📊 Score tracking across multiple games
+- 🎨 Retro arcade aesthetic with pixel font
+- ✨ Smooth animations and visual effects
+- 🧪 Comprehensive test coverage
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React 18
+- TypeScript
+- Vite
+- Vitest (unit/integration tests)
+- Playwright (E2E tests)
+- CSS Modules
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Installation
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Development
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev
 ```
+
+Open http://localhost:5173 to play.
+
+### Testing
+
+Run unit and integration tests:
+
+```bash
+npm test
+```
+
+Run E2E tests:
+
+```bash
+npm run test:e2e
+```
+
+### Build
+
+```bash
+npm run build
+```
+
+## Architecture
+
+The application uses a clean separation between game logic and UI:
+
+- **Game Engine** (`src/engine/`): Pure TypeScript classes handling game logic
+  - `TicTacToeGame`: Board state, move validation, win detection
+  - `AIPlayer`: Smart-but-beatable AI strategy
+  - `ScoreTracker`: Score persistence across games
+
+- **UI Components** (`src/components/`): React components for rendering
+  - `Game`: Main container coordinating engine and UI
+  - `Board`: 3x3 grid display
+  - `Cell`: Individual cell with animations
+  - `ScoreBoard`: Score display
+
+## AI Strategy
+
+The AI uses a priority-based strategy with intentional imperfection:
+
+**80% Smart Moves:**
+1. Take winning move if available
+2. Block player's winning move
+3. Take center if available
+4. Prefer corners over edges
+5. Take any available spot
+
+**20% "Mistakes":**
+- Randomly pick any valid move
+- Makes the AI beatable and more fun
+
+## License
+
+MIT
