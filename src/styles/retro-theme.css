@@ -1,0 +1,88 @@
+/* ABOUTME: Retro/arcade visual theme with pixel font and CRT effects */
+/* ABOUTME: Defines color palette, typography, and retro visual effects */
+
+:root {
+  /* Color palette - classic arcade */
+  --bg-dark: #0a0e27;
+  --grid-color: #00ff41;
+  --player-x: #ff006e;
+  --player-o: #00d9ff;
+  --text: #ffffff;
+  --accent: #ffbe0b;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Press Start 2P', monospace;
+  background-color: var(--bg-dark);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* CRT scanline effect */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.15),
+    rgba(0, 0, 0, 0.15) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
+  z-index: 1000;
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+  padding: 2rem;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  text-shadow: 0 0 10px var(--accent);
+}
+
+button {
+  font-family: 'Press Start 2P', monospace;
+  text-transform: uppercase;
+}
+
+/* Glow effect for grid lines */
+.board {
+  box-shadow:
+    0 0 20px rgba(0, 255, 65, 0.5),
+    inset 0 0 20px rgba(0, 255, 65, 0.1);
+}
+
+/* Player colors */
+button:has-text("X") {
+  color: var(--player-x);
+  text-shadow: 0 0 10px var(--player-x);
+}
+
+button:has-text("O") {
+  color: var(--player-o);
+  text-shadow: 0 0 10px var(--player-o);
+}
