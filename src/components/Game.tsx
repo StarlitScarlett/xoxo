@@ -3,10 +3,13 @@
 import { useState, useEffect } from 'react'
 import { TicTacToeGame } from '../engine/TicTacToeGame'
 import { AIPlayer } from '../engine/AIPlayer'
+import { ScoreTracker } from '../engine/ScoreTracker'
 import { Board } from './Board'
+import { ScoreBoard } from './ScoreBoard'
 
 const game = new TicTacToeGame()
 const ai = new AIPlayer()
+const scoreTracker = new ScoreTracker()
 
 export function Game() {
   const [board, setBoard] = useState(() => {
@@ -17,12 +20,20 @@ export function Game() {
   const [winner, setWinner] = useState(game.getWinner())
   const [winningCells, setWinningCells] = useState(game.getWinningCells())
   const [isAiThinking, setIsAiThinking] = useState(false)
+  const [scores, setScores] = useState(scoreTracker.getStats())
 
   const updateGameState = () => {
     setBoard(game.getBoard())
     setCurrentPlayer(game.getCurrentPlayer())
-    setWinner(game.getWinner())
+    const newWinner = game.getWinner()
+    setWinner(newWinner)
     setWinningCells(game.getWinningCells())
+
+    // Record score if game just ended
+    if (newWinner && newWinner !== winner) {
+      scoreTracker.recordResult(newWinner)
+      setScores(scoreTracker.getStats())
+    }
   }
 
   const handleCellClick = (row: number, col: number) => {
@@ -59,6 +70,7 @@ export function Game() {
 
   const handleNewGame = () => {
     game.reset()
+    setWinner(null)
     updateGameState()
     setIsAiThinking(false)
   }
@@ -66,6 +78,11 @@ export function Game() {
   return (
     <div>
       <h1>Tic Tac Toe</h1>
+      <ScoreBoard
+        playerWins={scores.playerWins}
+        aiWins={scores.aiWins}
+        draws={scores.draws}
+      />
       <Board
         board={board}
         onCellClick={handleCellClick}
