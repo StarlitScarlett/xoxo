@@ -10,9 +10,10 @@
   align-items: center;
   justify-content: center;
   transition: background-color 0.2s;
+  position: relative;
 }
 
-.cell:hover {
+.cell:hover:not(:disabled) {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
@@ -20,6 +21,49 @@
   cursor: not-allowed;
 }
 
+.cell span {
+  display: inline-block;
+  transition: transform 0.2s ease-out;
+}
+
+.animating span {
+  animation: placeAnimation 0.2s ease-out;
+}
+
+@keyframes placeAnimation {
+  0% {
+    transform: scale(0) rotate(-10deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2) rotate(5deg);
+  }
+  100% {
+    transform: scale(1) rotate(0);
+    opacity: 1;
+  }
+}
+
 .winning {
   background-color: rgba(255, 190, 11, 0.3);
+  animation: winningPulse 0.5s ease-in-out;
+}
+
+@keyframes winningPulse {
+  0%, 100% {
+    background-color: rgba(255, 190, 11, 0.3);
+  }
+  50% {
+    background-color: rgba(255, 190, 11, 0.6);
+  }
+}
+
+.x {
+  color: var(--player-x);
+  text-shadow: 0 0 10px var(--player-x);
+}
+
+.o {
+  color: var(--player-o);
+  text-shadow: 0 0 10px var(--player-o);
 }
