@@ -69,4 +69,79 @@ describe('TicTacToeGame', () => {
       expect(result).toBe(false)
     })
   })
+
+  describe('win detection', () => {
+    it('should detect horizontal win in top row', () => {
+      game.makeMove(0, 0) // X
+      game.makeMove(1, 0) // O
+      game.makeMove(0, 1) // X
+      game.makeMove(1, 1) // O
+      game.makeMove(0, 2) // X wins
+
+      expect(game.getWinner()).toBe('X')
+      expect(game.getWinningCells()).toEqual([[0, 0], [0, 1], [0, 2]])
+    })
+
+    it('should detect vertical win in middle column', () => {
+      game.makeMove(0, 1) // X
+      game.makeMove(0, 0) // O
+      game.makeMove(1, 1) // X
+      game.makeMove(0, 2) // O
+      game.makeMove(2, 1) // X wins
+
+      expect(game.getWinner()).toBe('X')
+      expect(game.getWinningCells()).toEqual([[0, 1], [1, 1], [2, 1]])
+    })
+
+    it('should detect diagonal win (top-left to bottom-right)', () => {
+      game.makeMove(0, 0) // X
+      game.makeMove(0, 1) // O
+      game.makeMove(1, 1) // X
+      game.makeMove(0, 2) // O
+      game.makeMove(2, 2) // X wins
+
+      expect(game.getWinner()).toBe('X')
+      expect(game.getWinningCells()).toEqual([[0, 0], [1, 1], [2, 2]])
+    })
+
+    it('should detect diagonal win (top-right to bottom-left)', () => {
+      game.makeMove(0, 2) // X
+      game.makeMove(0, 0) // O
+      game.makeMove(1, 1) // X
+      game.makeMove(0, 1) // O
+      game.makeMove(2, 0) // X wins
+
+      expect(game.getWinner()).toBe('X')
+      expect(game.getWinningCells()).toEqual([[0, 2], [1, 1], [2, 0]])
+    })
+
+    it('should detect draw when board is full with no winner', () => {
+      // X X O
+      // O O X
+      // X O X
+      game.makeMove(0, 0) // X
+      game.makeMove(0, 2) // O
+      game.makeMove(0, 1) // X
+      game.makeMove(1, 0) // O
+      game.makeMove(1, 2) // X
+      game.makeMove(1, 1) // O
+      game.makeMove(2, 0) // X
+      game.makeMove(2, 2) // O
+      game.makeMove(2, 1) // X
+
+      expect(game.getWinner()).toBe('Draw')
+      expect(game.getWinningCells()).toBe(null)
+    })
+
+    it('should detect O winning', () => {
+      game.makeMove(0, 0) // X
+      game.makeMove(1, 0) // O
+      game.makeMove(0, 1) // X
+      game.makeMove(1, 1) // O
+      game.makeMove(2, 2) // X
+      game.makeMove(1, 2) // O wins
+
+      expect(game.getWinner()).toBe('O')
+    })
+  })
 })

@@ -9,6 +9,7 @@ export class TicTacToeGame {
   private board: Board
   private currentPlayer: Player
   private winner: Winner
+  private winningCells: [number, number][] | null
 
   constructor() {
     this.board = [
@@ -18,6 +19,7 @@ export class TicTacToeGame {
     ]
     this.currentPlayer = 'X'
     this.winner = null
+    this.winningCells = null
   }
 
   getBoard(): Board {
@@ -30,6 +32,10 @@ export class TicTacToeGame {
 
   getWinner(): Winner {
     return this.winner
+  }
+
+  getWinningCells(): [number, number][] | null {
+    return this.winningCells ? [...this.winningCells] : null
   }
 
   makeMove(row: number, col: number): boolean {
@@ -61,7 +67,56 @@ export class TicTacToeGame {
   }
 
   private checkWinner(): Winner {
-    // Placeholder for now - will implement in next task
+    // Check rows
+    for (let row = 0; row < 3; row++) {
+      if (
+        this.board[row][0] !== null &&
+        this.board[row][0] === this.board[row][1] &&
+        this.board[row][1] === this.board[row][2]
+      ) {
+        this.winningCells = [[row, 0], [row, 1], [row, 2]]
+        return this.board[row][0]
+      }
+    }
+
+    // Check columns
+    for (let col = 0; col < 3; col++) {
+      if (
+        this.board[0][col] !== null &&
+        this.board[0][col] === this.board[1][col] &&
+        this.board[1][col] === this.board[2][col]
+      ) {
+        this.winningCells = [[0, col], [1, col], [2, col]]
+        return this.board[0][col]
+      }
+    }
+
+    // Check diagonal (top-left to bottom-right)
+    if (
+      this.board[0][0] !== null &&
+      this.board[0][0] === this.board[1][1] &&
+      this.board[1][1] === this.board[2][2]
+    ) {
+      this.winningCells = [[0, 0], [1, 1], [2, 2]]
+      return this.board[0][0]
+    }
+
+    // Check diagonal (top-right to bottom-left)
+    if (
+      this.board[0][2] !== null &&
+      this.board[0][2] === this.board[1][1] &&
+      this.board[1][1] === this.board[2][0]
+    ) {
+      this.winningCells = [[0, 2], [1, 1], [2, 0]]
+      return this.board[0][2]
+    }
+
+    // Check for draw (board full)
+    const isBoardFull = this.board.flat().every(cell => cell !== null)
+    if (isBoardFull) {
+      return 'Draw'
+    }
+
     return null
   }
 }
