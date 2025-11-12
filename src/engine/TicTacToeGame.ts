@@ -31,4 +31,37 @@ export class TicTacToeGame {
   getWinner(): Winner {
     return this.winner
   }
+
+  makeMove(row: number, col: number): boolean {
+    // Validate bounds
+    if (row < 0 || row > 2 || col < 0 || col > 2) {
+      return false
+    }
+
+    // Can't move if game is over
+    if (this.winner !== null) {
+      return false
+    }
+
+    // Can't move on occupied cell
+    if (this.board[row][col] !== null) {
+      return false
+    }
+
+    // Make the move
+    this.board[row][col] = this.currentPlayer
+
+    // Check for winner
+    this.winner = this.checkWinner()
+
+    // Switch player
+    this.currentPlayer = this.currentPlayer === 'X' ? 'O' : 'X'
+
+    return true
+  }
+
+  private checkWinner(): Winner {
+    // Placeholder for now - will implement in next task
+    return null
+  }
 }
