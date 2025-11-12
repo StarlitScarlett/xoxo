@@ -93,6 +93,15 @@ export class TicTacToeGame {
     return this.winner !== null
   }
 
+  clone(): TicTacToeGame {
+    const cloned = new TicTacToeGame()
+    cloned.board = this.board.map(row => [...row])
+    cloned.currentPlayer = this.currentPlayer
+    cloned.winner = this.winner
+    cloned.winningCells = this.winningCells ? [...this.winningCells] : null
+    return cloned
+  }
+
   private checkWinner(): Winner {
     // Check rows
     for (let row = 0; row < 3; row++) {
