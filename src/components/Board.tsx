@@ -1,6 +1,6 @@
 // ABOUTME: Game board component displaying 3x3 grid of cells
 // ABOUTME: Handles cell clicks and highlights winning combinations
-import { Board as BoardType } from '../engine/TicTacToeGame'
+import type { Board as BoardType } from '../engine/TicTacToeGame'
 import { Cell } from './Cell'
 import styles from './Board.module.css'
 

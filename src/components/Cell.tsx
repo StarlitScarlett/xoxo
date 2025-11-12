@@ -1,6 +1,6 @@
 // ABOUTME: Individual cell component for tic tac toe board
 // ABOUTME: Handles click events and displays X, O, or empty state
-import { CellValue } from '../engine/TicTacToeGame'
+import type { CellValue } from '../engine/TicTacToeGame'
 import styles from './Cell.module.css'
 import { useEffect, useState } from 'react'
 

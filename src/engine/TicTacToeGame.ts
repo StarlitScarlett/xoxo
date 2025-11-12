@@ -1,9 +1,11 @@
 // ABOUTME: Core game engine for tic tac toe logic
 // ABOUTME: Manages board state, turn tracking, move validation, and win detection
-export type Player = 'X' | 'O'
-export type CellValue = Player | null
-export type Board = CellValue[][]
-export type Winner = Player | 'Draw' | null
+type Player = 'X' | 'O'
+type CellValue = Player | null
+type Board = CellValue[][]
+type Winner = Player | 'Draw' | null
+
+export type { Player, CellValue, Board, Winner }
 
 export class TicTacToeGame {
   private board: Board

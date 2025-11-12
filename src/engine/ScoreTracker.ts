@@ -1,6 +1,6 @@
 // ABOUTME: Tracks game scores across multiple games
 // ABOUTME: Records wins, losses, and draws for player and AI
-import { Winner } from './TicTacToeGame'
+import type { Winner } from './TicTacToeGame'
 
 export interface GameStats {
   playerWins: number

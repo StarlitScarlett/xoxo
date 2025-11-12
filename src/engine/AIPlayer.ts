@@ -1,6 +1,7 @@
 // ABOUTME: AI player implementation with smart-but-beatable strategy
 // ABOUTME: Makes strategic moves 80% of the time, random moves 20% of the time
-import { TicTacToeGame, Player } from './TicTacToeGame'
+import { TicTacToeGame } from './TicTacToeGame'
+import type { Player } from './TicTacToeGame'
 
 export class AIPlayer {
   private readonly mistakeChance = 0.2 // 20% chance to make a random move
