@@ -1,6 +1,6 @@
 # Tic Tac Toe
 
-A retro-styled tic tac toe game built with React, TypeScript, and Vite. Play against a smart AI opponent that provides a good challenge while still being beatable. Built using Test-Driven Development (TDD) with comprehensive test coverage across all layers.
+A retro-styled tic tac toe game built with React, TypeScript, and Vite. Play against a smart AI opponent that provides a good challenge while still being beatable. Built using Test-Driven Development (TDD) with comprehensive test coverage across all layers. 
 
 ## Features
 
